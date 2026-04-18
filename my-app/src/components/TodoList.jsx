@@ -1,47 +1,13 @@
-import { useState } from "react";
+import React from "react";
+import TodoItem from "./TodoItem";
 
-function TodoList() {
-    const [input, setInput] = useState("");
-    const [todos, setTodos] = useState([]);
-
-    function addTodo() {
-        if (input.trim() === "") return;
-
-        const newTodo = {
-            id: crypto.randomUUID(),
-            text: input
-        };
-
-        setTodos([...todos, newTodo]);
-        setInput("");
-    }
-
-    function deleteTodo(id) {
-        setTodos(todos.filter((todo) => todo.id !== id));
-    }
-
+function TodoList({ todos = [], deleteTodo }) {
     return (
-        <div style={{ textAlign: "center" }}>
-           
-
-            <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Add todo"
-            />
-
-            <button onClick={addTodo}>Add</button>
-
-            <ul style={{ listStyle: "none" }}>
-                {todos.map((todo) => (
-                    <li key={todo.id}>
-                        {todo.text}
-                        <button onClick={() => deleteTodo(todo.id)}>
-                            Delete
-                        </button>
-                    </li>
-                ))}
-            </ul>
+        <div className="todo-list">
+            {todos.map((todo, index) => (
+                <TodoItem key={index} todo={todo} index={index} deleteTodo={deleteTodo} />
+            ))}
+            {todos.length === 0 && <p className="empty-state">No todos yet. Add one above!</p>}
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Todoinput({ addTodo }) {
+function TodoInput({ addTodo }) {
     const [todo, setTodo] = useState("");
 
     const handleAdd = () => {
@@ -11,17 +11,17 @@ function Todoinput({ addTodo }) {
     };
 
     return (
-        <div>
+        <div className="input-group">
             <input
                 type="text"
-                placeholder="Enter your todo"
+                placeholder="What needs to be done?"
                 value={todo}
                 onChange={(e) => setTodo(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAdd()}
             />
-
-            <button onClick={handleAdd}>Add</button>
+            <button className="add-btn" onClick={handleAdd}>Add Task</button>
         </div>
     );
 }
 
-export default Todoinput;
+export default TodoInput;
